@@ -26,18 +26,9 @@ mongoose.connect("mongodb://localhost/mongoScraper", {
 
 
 router.get('/', function(req, res) {
-    res.send('fetch route works');
     axios.get("https://www.nytimes.com/").then(response => {
         const $ = cheerio.load(response.data);
-        // $("div.xx-small").each((i, element) => {
-        //     $(element).remove();
-        // })
-        // $("div.x-small").each((i, element) => {
-        //     $(element).remove();
-        // })
-        // $("div.line-outer").each((i, element) => {
-        //     $(element).remove();
-        // })
+        
         $("h2.section-heading").each((i, element) => {
             $(element).parent().remove();
         })
@@ -45,25 +36,45 @@ router.get('/', function(req, res) {
             console.log("Title: " + $(element).text());
             console.log("Link: " + $(element).children().attr("href") + " \n");
         })
-
-        $("h2.story-heading").each((i, element) => {
+        
+        $("article").each((i, element) => {
             let result = {};
             // console.log("Title: " + $(element).text().trim());
             // console.log("Link: " + $(element).children("a").attr("href") + " \n");
-            if ($(element).text().trim() === "Search for Homes for Sale or Rent" || $(element).text().trim() === "Mortgage Calculator") {
+            if ($(element).children("h2").attr("class", "story-heading").text().trim() === "Search for Homes for Sale or Rent" || $(element).text().trim() === "Mortgage Calculator") {
             } else {
-                result.title = $(element).text().trim();
-                result.link = $(element).children("a").attr("href");
-                result.summary = $(element).parent().children("p").attr("class", "summary").text().trim();
+                result.title = $(element).children("h2").attr("class", "story-heading").text().trim();
+                result.link = $(element).children("h2").attr("class", "story-heading").children("a").attr("href");
+                result.byline = $(element).children().attr("class", "byline").text().trim();
             }
             db.Headline.create(result)
             .then(data => {
                 console.log(result)
                 console.log(data);
+                res.send("it worked");
             }).catch(err => {
                 return;
             })
         })
+
+        // $("h2.story-heading").each((i, element) => {
+        //     let result = {};
+        //     // console.log("Title: " + $(element).text().trim());
+        //     // console.log("Link: " + $(element).children("a").attr("href") + " \n");
+        //     if ($(element).text().trim() === "Search for Homes for Sale or Rent" || $(element).text().trim() === "Mortgage Calculator") {
+        //     } else {
+        //         result.title = $(element).text().trim();
+        //         result.link = $(element).children("a").attr("href");
+        //         result.byline = $(element).children("p").attr("class", "byline").text().trim();
+        //     }
+        //     db.Headline.create(result)
+        //     .then(data => {
+        //         console.log(result)
+        //         console.log(data);
+        //     }).catch(err => {
+        //         return;
+        //     })
+        // })
     })
 });
 

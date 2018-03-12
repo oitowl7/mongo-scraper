@@ -18,6 +18,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static("public"));
 const router = express.Router();
 
+// handlebars engine
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
 // By default mongoose uses callbacks for async queries, we're setting it to use promises (.then syntax) instead
 // Connect to the Mongo DB
 mongoose.Promise = Promise;

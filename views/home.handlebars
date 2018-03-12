@@ -1,0 +1,68 @@
+<nav class="navbar navbar-default navbar-primary" role="navigation">
+    <div class="container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#dropdown-thumbnail-preview">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-brand">
+            <div class="row">
+                <div class="col-11">
+                    <img src="assets/img/app-icon.jpg" class="nav-icon"> NYTimes Scraper
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="collapse navbar-collapse" id="dropdown-thumbnail-preview">
+        <ul class="nav navbar-nav">
+        <li class="active" id"home-nav"><a href="#">Home</a></li>
+        <li><a href="/saved" id="saved-nav">My Saved Stories</a></li>
+        <li><a href="#" id="fetch-nav" class="green-bg">Scrape for More Stories</a></li>
+        </ul>
+        <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+    </div>
+</nav>
+<img class="container-fluid under-nav-picture" src="assets/img/nyt-old.jpg">
+
+
+
+<div class="append-area">
+    {{#each data}}
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3>
+                <a class="article-link" target="_blank" href="{{link}}">{{title}}</a>
+            </h3>
+            <a class="btn btn-success save" onclick="saveArticle('{{_id}}')">Save Article</a>
+        </div>
+        <div class="panel-body blue-background">
+            {{byline}}
+        </div>
+    </div>
+    {{/each}}
+
+
+    {{!-- example div --}}
+    {{!-- <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3>
+                <a class="article-link" target="_blank" href="https://www.nytimes.com/2018/03/09/books/andy-griffiths-treehouse-series-childrens-literature.html">Andy Griffiths, the Down-Under Kids’ Author Known for His Butt Jokes, Now Builds and Builds on His Hit ‘Treehouse’ Series</a>
+            </h3>
+            <a class="btn btn-success save">Save Article</a>
+        </div>
+        <div class="panel-body blue-background">His books are wildly popular among young readers in Australia, Europe and the United States, where a new one hits stores March 13.
+        </div>
+    </div> --}}
+</div>
+
+
+<script src="assets/js/home.js"></script>

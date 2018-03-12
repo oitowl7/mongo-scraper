@@ -1,0 +1,98 @@
+.thumb-dropdown .dropdown-menu > li {
+    position: relative;
+}
+.thumb-dropdown .dropdown-menu > li > a .thumbnail {
+    position: absolute; 
+    left: 100%;
+    top: -10px;
+    display: none;    
+    width: 350px;
+    height: auto;
+    margin-left: 5px;
+}
+
+.thumb-dropdown .dropdown-menu > li > a:hover .thumbnail  {
+    display: block;    
+}
+
+.navbar-brand {
+    display: block;
+    margin-right: 5px;
+}
+
+.nav-icon {
+    height: 25px;
+    width: 25px;
+}
+
+.under-nav-picture {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.append-area {
+    margin-top: 25px;
+}
+
+.blue-background {
+    background-color: rgb(159, 173, 255)
+}
+
+.panel-heading {
+    position: relative;
+}
+
+.save {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 16px;
+    font-size: 13px;
+    line-height: 1.846;
+    border-radius: 3px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.delete-note-div {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 16px;
+    font-size: 13px;
+    line-height: 1.846;
+    border-radius: 3px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.green-bg {
+    background-color: rgb(124, 253, 124)
+}
