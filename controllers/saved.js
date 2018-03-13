@@ -30,5 +30,19 @@ router.put('/delete/:id', (req, res) => {
         
     })
 })
+
+router.post('/newnote/:id', (req, res) => {
+    db.Note.create(req.body)
+    .then( data => {
+        console.log(data);
+        return db.Headline.update({_id: req.params.id}, { $push: {note: data._id }}, {new: true});
+    })
+    .then(data2 => {
+        res.json(data2)
+    })
+    .catch( err => {
+        res.json(err);
+    })
+})
 module.exports = router;
 
