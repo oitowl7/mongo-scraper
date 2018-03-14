@@ -23,7 +23,9 @@ router.get('/', (req, res) => {
             data: []
         }
         for (var i = 0; i < data.length; i++) {
-            dataToDom.data.push(data[i])
+            if (!data[i].saved) {
+               dataToDom.data.push(data[i])
+            }
         }
         res.render('home', dataToDom)
         // res.json(dataToDom.data);

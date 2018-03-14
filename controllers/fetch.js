@@ -26,9 +26,9 @@ mongoose.connect("mongodb://localhost/mongoScraper", {
 
 
 router.get('/', function(req, res) {
+    console.log("we're fetching")
     axios.get("https://www.nytimes.com/").then(response => {
         const $ = cheerio.load(response.data);
-        
         $("h2.section-heading").each((i, element) => {
             $(element).parent().remove();
         })
@@ -53,7 +53,7 @@ router.get('/', function(req, res) {
                 console.log(data);
                 res.send("it worked");
             }).catch(err => {
-                return;
+                // res.send("no new stuff");
             })
         })
 

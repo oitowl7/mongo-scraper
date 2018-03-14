@@ -20,7 +20,7 @@ router.get('/', function(req, res) {
     })
 });
 
-router.put('/delete/:id', (req, res) => {
+router.put('/deletesaved/:id', (req, res) => {
     const id = req.params.id;
     db.Headline.update({_id: req.params.id}, { $set: {saved: false}}, (err, results) => {
         console.log(results);
@@ -43,6 +43,14 @@ router.post('/newnote/:id', (req, res) => {
     .catch( err => {
         res.json(err);
     })
+})
+
+router.delete('/deletenote/:id', (req, res) => {
+    console.log("ID : _" + req.params.id);
+    db.Note.deleteOne({_id: req.params.id}, (err) => {
+
+    })
+    .then(data => res.json(data))
 })
 module.exports = router;
 

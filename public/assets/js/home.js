@@ -53,5 +53,6 @@ var saveArticle = (id) => {
         url: "/save/" + id
     }).done(data => {
         console.log(data);
+        location.reload();
     })
 }
