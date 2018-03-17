@@ -6,7 +6,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const db = require("./models");
 const exphbs = require('express-handlebars')
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Initialize Express
 const app = express();
