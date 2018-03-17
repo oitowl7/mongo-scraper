@@ -25,9 +25,22 @@ app.set("view engine", "handlebars");
 // By default mongoose uses callbacks for async queries, we're setting it to use promises (.then syntax) instead
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/mongoScraper", {
-//   useMongoClient: true
-});
+const databaseUri = 'mongodb://localhost/mongoScraper';
+if (process.env.MONGODB_URI){
+    mongoose.connect(process.env.MONGODB_URI);
+} else {
+    mongoose.connect(databaseUri);
+}
+
+const dbi = mongoose.connection;
+
+dbi.on('error', err => {
+    console.log('mongoose error: ' + err);
+})
+
+dbi.once('open', () => {
+    console.log('mongoose connection successful.');
+})
 
 //Routes
 app.use(require('./controllers'))
