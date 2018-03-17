@@ -57,6 +57,14 @@ a {
     color: black;
 }
 
+.note-delete {
+    margin-top: 10px;
+}
+
+.text-area {
+    width: 90%;
+}
+
 .save {
     position: absolute;
     top: 20px;

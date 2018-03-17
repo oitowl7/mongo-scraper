@@ -41,6 +41,7 @@ $(function () {
             console.log(data);
             location.reload();
         })
+        displayLoaderBootbox();
     })
 });
 
@@ -63,3 +64,8 @@ $(".search-btn").on("click", (event) => {
         console.log("done");
     })
 })
+
+var displayLoaderBootbox = () => {
+    console.log("This happened as the ajax request is being made");
+    
+}

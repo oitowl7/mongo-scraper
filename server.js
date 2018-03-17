@@ -10,8 +10,6 @@ const PORT = process.env.PORT || 3000;
 
 // Initialize Express
 const app = express();
-// Use morgan logger for logging requests
-// app.use(logger("dev"));
 // Use body-parser for handling form submissions
 app.use(bodyParser.urlencoded({ extended: false }));
 // Use express.static to serve the public folder as a static directory

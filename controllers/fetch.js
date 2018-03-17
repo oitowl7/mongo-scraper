@@ -7,21 +7,15 @@ const cheerio = require("cheerio");
 const db = require("../models");
 const exphbs = require('express-handlebars')
 let router = express.Router();
+
+
 // Initialize Express
 var app = express();
-// Use morgan logger for logging requests
-// app.use(logger("dev"));
 // Use body-parser for handling form submissions
 app.use(bodyParser.urlencoded({ extended: false }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
-// By default mongoose uses callbacks for async queries, we're setting it to use promises (.then syntax) instead
-// Connect to the Mongo DB
-mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/mongoScraper", {
-//   useMongoClient: true
-});
 
 
 

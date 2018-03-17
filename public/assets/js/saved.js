@@ -1,7 +1,6 @@
 $(function () {
     // Remove Search if user Resets Form or hits Escape!
     $('body, .navbar-collapse form[role="search"] button[type="reset"]').on('click keyup', function(event) {
-        // console.log(event.currentTarget);
         if (event.which == 27 && $('.navbar-collapse form[role="search"]').hasClass('active') ||
             $(event.currentTarget).attr('type') == 'reset') {
             closeSearch();
@@ -35,19 +34,16 @@ $(function () {
 });
 
 var deleteArticle = id => {
-    console.log(id);
     $.ajax({
         type:"PUT",
         url: "/saved/deletesaved/" + id
     }).done(data => {
-        console.log(data);
         location.reload();
     })
 }
 
+// creates modal for the article notes to be rendered to. existing notes are not rendered here
 var articleNotes = (id, title) => {
-    console.log(id);
-    console.log(title);
     $.ajax({
         type: "GET",
         url: "/api/notes/" + id
@@ -59,7 +55,7 @@ var articleNotes = (id, title) => {
         "</h4>",
         "<ul class='list-group note-container'>",
         "</ul>",
-        "<textarea placeholder='New Note' rows='4' cols='60' id='note-to-store'></textarea>",
+        "<textarea class='text-area' placeholder='New Note' rows='4' cols='60' id='note-to-store'></textarea>",
         "<br>",
         `<button class='btn btn-success save-note' onclick="saveNote('${id}')">Save Note</button>`,
         "</div>"
@@ -75,24 +71,23 @@ var articleNotes = (id, title) => {
     })
 }
 
+// existing notes are rendered here and appended to the modal made above
 var renderNotes = (data) => {
-    console.log(data);
     var notesToRender = [];
     var currentNote;
-    // console.log(data[0].title);
     if (!data[0].note.length) {
-        console.log("if happened")
-      // If we have no notes, just display a message explaing this
-      console.log("this happened");
+      // If we have no notes, put one empty "div" explaining that we have none
       currentNote = ["<li class='list-group-item'>", "No notes for this article yet.", "</li>"].join("");
+      notesToRender.push(currentNote);
     } else {
-        console.log(data);
         for (var i = 0; i < data[0].note.length; i++) {
             currentNote = [
                 `<li class="list-group-item note">`,
+                `<div class="note-body">`,
                 data[0].note[i].body,
-                `</li>`,
-                `<button class='btn btn-danger note-delete' onclick="deleteNote('${data[0].note[i]._id}', '${i}')">Delete</button>`
+                `</div>`,
+                `<button class='btn btn-danger note-delete' onclick="deleteNote('${data[0].note[i]._id}', '${i}')">Delete</button>`,
+                `</li>`
             ].join("");
             notesToRender.push(currentNote);
         }
@@ -102,17 +97,15 @@ var renderNotes = (data) => {
 }
 
 var deleteNote = (id, index) => {
-    console.log(id)
     $.ajax({
         type: "DELETE",
         url: 'saved/deletenote/' + id
     }).then(data => {
-        console.log(data);
         bootbox.hideAll();
     })
 }
 
-
+// saves and reloads the page after ajax call is answered
 var saveNote = (id) => {
     var newNote = $("#note-to-store").val().trim();
     if (newNote) {
@@ -125,8 +118,6 @@ var saveNote = (id) => {
             url: "/saved/newnote/" + id,
             data: noteToStore
         }).then((data) => {
-            console.log("note stores");
-            console.log(data);
             bootbox.hideAll();
         })
     }
