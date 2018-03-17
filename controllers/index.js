@@ -12,7 +12,7 @@ mongoose.connect("mongodb://localhost/mongoScraper", {
 router.use('/fetch', require('./fetch.js'));
 router.use('/saved', require('./saved.js'));
 router.use('/note', require('./note.js'));
-// router.use('/', require('./slash.js'));
+router.use('/search', require('./search.js'));
 router.use('/api', require('./api.js'));
 
 router.get('/', (req, res) => {

@@ -27,54 +27,26 @@ mongoose.connect("mongodb://localhost/mongoScraper", {
 
 router.get('/', function(req, res) {
     console.log("we're fetching")
-    axios.get("https://www.nytimes.com/").then(response => {
+    axios.get("https://www.reddit.com").then(response => {
         const $ = cheerio.load(response.data);
-        $("h2.section-heading").each((i, element) => {
-            $(element).parent().remove();
-        })
-        $("h1.story-heading").each((i, element) => {
-            console.log("Title: " + $(element).text());
-            console.log("Link: " + $(element).children().attr("href") + " \n");
-        })
-        
-        $("article").each((i, element) => {
-            let result = {};
-            // console.log("Title: " + $(element).text().trim());
-            // console.log("Link: " + $(element).children("a").attr("href") + " \n");
-            if ($(element).children("h2").attr("class", "story-heading").text().trim() === "Search for Homes for Sale or Rent" || $(element).text().trim() === "Mortgage Calculator") {
-            } else {
-                result.title = $(element).children("h2").attr("class", "story-heading").text().trim();
-                result.link = $(element).children("h2").attr("class", "story-heading").children("a").attr("href");
-                result.byline = $(element).children().attr("class", "byline").text().trim();
+        $("a.title").each((i, element) => {
+            const title = $(element).text().trim();
+            const redditLink = "www.reddit.com/" + $(element).parent().parent().parent().parent().attr("data-permalink")
+            const externalLink = $(element).parent().parent().parent().parent().attr("data-url")
+            const subReddit = $(element).parent().parent().parent().parent().attr("data-subreddit")
+            let result = {
+                title,
+                redditLink,
+                externalLink,
+                subReddit
             }
             db.Headline.create(result)
             .then(data => {
-                console.log(result)
+                console.log(result);
                 console.log(data);
                 res.send("it worked");
-            }).catch(err => {
-                // res.send("no new stuff");
             })
         })
-
-        // $("h2.story-heading").each((i, element) => {
-        //     let result = {};
-        //     // console.log("Title: " + $(element).text().trim());
-        //     // console.log("Link: " + $(element).children("a").attr("href") + " \n");
-        //     if ($(element).text().trim() === "Search for Homes for Sale or Rent" || $(element).text().trim() === "Mortgage Calculator") {
-        //     } else {
-        //         result.title = $(element).text().trim();
-        //         result.link = $(element).children("a").attr("href");
-        //         result.byline = $(element).children("p").attr("class", "byline").text().trim();
-        //     }
-        //     db.Headline.create(result)
-        //     .then(data => {
-        //         console.log(result)
-        //         console.log(data);
-        //     }).catch(err => {
-        //         return;
-        //     })
-        // })
     })
 });
 

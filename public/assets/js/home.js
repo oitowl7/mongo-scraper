@@ -22,7 +22,6 @@ $(function () {
             $input = $form.find('input');
         $form.addClass('active');
         $input.focus();
-
     });
     // ONLY FOR DEMO // Please use $('form').submit(function(event)) to track from submission
     // if your form is ajax remember to call `closeSearch()` to close the search container
@@ -41,7 +40,6 @@ $(function () {
         }).done(data => {
             console.log(data);
             location.reload();
-            return;
         })
     })
 });
@@ -56,3 +54,12 @@ var saveArticle = (id) => {
         location.reload();
     })
 }
+
+$(".search-btn").on("click", (event) => {
+    $.ajax({
+        type: "GET",
+        url: '/search/' + $("#search-field").val().trim()
+    }).done(data => {
+        console.log("done");
+    })
+})

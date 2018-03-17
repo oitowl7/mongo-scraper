@@ -7,12 +7,15 @@ var HeadlineSchema = new Schema({
     unique: "This thingy is already in here",
     required: true
   },
-  link: {
+  redditLink: {
     type: String,
     required: true
   },
-  byline: {
+  externalLink: {
       type: String,
+  },
+  subReddit: {
+      type: String
   },
   saved: {
       type: Boolean,
