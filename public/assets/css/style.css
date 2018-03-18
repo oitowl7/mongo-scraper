@@ -50,6 +50,10 @@
     color: black;
 }
 
+#panel-heading-saved {
+    padding-right: 33%;
+}
+
 .panel-body {
     background-color:  rgb(135, 154, 173);
     color: black;
