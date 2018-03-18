@@ -46,13 +46,21 @@
 .panel-heading {
     position: relative;
     padding-right: 15%;
-    background-color: white;
+    background-color: #CEE3F8;
     color: black;
 }
 
 .panel-body {
-    background-color:  rgb(199, 198, 198);
+    background-color:  rgb(135, 154, 173);
     color: black;
+}
+
+#stat-table {
+    background-color: #CEE3F8
+}
+
+.stat-header{
+    color: white;
 }
 
 a {
@@ -160,6 +168,18 @@ a {
     padding-top: 10px;
 
 }
+
+footer {
+    min-height: 60px;
+    background-color: #CEE3F8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .footer-text {
+    padding-left: 20%;
+} */
 
 
 /* start loading screen snippet css here */
@@ -310,6 +330,19 @@ body {
         display:block !important;
     }
   }
+
+@media (max-width: 992px) {
+    .delete-note-div {
+        right: 1%;
+        width: 173px;
+    }
+    .delete {
+        margin-bottom: 5px;
+    }
+    .panel-heading {
+        min-height: 125px;
+    }
+}
 
 @media (max-width: 768px) {
     .panel-heading {

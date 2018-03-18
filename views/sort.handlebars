@@ -18,10 +18,9 @@
 
     <div class="collapse navbar-collapse" id="dropdown-thumbnail-preview">
         <ul class="nav navbar-nav">
-        <li class="active" id"home-nav"><a href="#">Home</a></li>
-        <li><a href="/saved" id="saved-nav">Saved Posts</a></li>
-        <li><a href="/sort" id="sort-nav">Stats</a></li>
-        <li><a href="#" id="fetch-nav" class="">Scrape Posts</a></li>
+            <li><a href="/" id="home-nav">Home</a></li>
+            <li><a href="/saved" id="saved-nav">Saved Posts</a></li>
+            <li class="active"><a class="active" href="/sort" id="sort-nav">Stats</a></li>
         </ul>
         <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
@@ -35,32 +34,27 @@
 <img class="container-fluid under-nav-picture" src="assets/img/reddit.png">
 
 <div class="append-area container">
-    {{#each data}}
-    <div class="panel">
-        <div class="panel-heading">
-            <h3>
-                <a class="article-link" target="_blank" href="http://{{redditLink}}">{{title}}</a>
-            </h3>
-            <a class="btn btn-save save" onclick="saveArticle('{{_id}}')">Save Post</a>
-        </div>
-        <div class="panel-body">
-            <a href="http://www.reddit.com/r/{{subReddit}}" target="_blank">Subreddit: r/{{subReddit}}</a>
-            {{#if externalLink}}
-                <br>
-                <a href="{{externalLink}}" target="_blank">Link to Reference</a>
-            {{/if}}
-        </div>
-    </div>
-    {{/each}}
-
+    <h1 class="text-center stat-header">Top 10 Most Commonly Used Subreddits</h1>
+    <table class="table table-hover" id="stat-table">
+    <thead>
+        <tr>
+            <th scope="col" style="width:16.66%">Number of Headlines</th>
+            <th scope="col" class="col-2">SubReddit</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each data}}
+        <tr>
+            <th scope="row" style="width:16.66%">{{count}}</td>
+            <td><a href="https://www.reddit.com/r/{{_id}}" target="_blank">{{_id}}</a></th>
+        </tr>
+        {{/each}}
+    </tbody>
+    </table>
 </div>
-
 
 <footer class="container-fluid">
     <div class="footer-text d-flex align-items-center">
         <span class="justify-content-center">&#169 Jordan Shear NO TAKIE MA STUFFIE</span>
     </div>
 </footer>
-
-
-<script src="assets/js/home.js"></script>

@@ -8,6 +8,7 @@ router.use('/fetch', require('./fetch.js'));
 router.use('/saved', require('./saved.js'));
 router.use('/search', require('./search.js'));
 router.use('/api', require('./api.js'));
+router.use('/sort', require('./sort.js'));
 
 //main page route
 router.get('/', (req, res) => {
