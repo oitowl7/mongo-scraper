@@ -48,7 +48,7 @@ var articleNotes = (id, title) => {
         type: "GET",
         url: "/api/notes/" + id
     }).done( data => {
-        let modalText = [
+        const modalText = [
         "<div class='container-fluid text-center dialogbox'>",
         "<h4>",
         title,

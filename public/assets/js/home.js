@@ -2,7 +2,6 @@
 $(function () {
     // Remove Search if user Resets Form or hits Escape!
     $('body, .navbar-collapse form[role="search"] button[type="reset"]').on('click keyup', function(event) {
-        // console.log(event.currentTarget);
         if (event.which == 27 && $('.navbar-collapse form[role="search"]').hasClass('active') ||
             $(event.currentTarget).attr('type') == 'reset') {
             closeSearch();
@@ -38,34 +37,46 @@ $(function () {
             type: "GET",
             url: "/fetch"
         }).done(data => {
-            console.log(data);
             location.reload();
         })
         displayLoaderBootbox();
     })
 });
 
+//api call to change "saved" field and reload without that headline
 var saveArticle = (id) => {
-    console.log(id);
     $.ajax({
         type:"PUT",
         url: "/save/" + id
     }).done(data => {
-        console.log(data);
         location.reload();
     })
 }
 
+// currently not working...commented out so that it doesn't do anything at all
 $(".search-btn").on("click", (event) => {
-    $.ajax({
-        type: "GET",
-        url: '/search/' + $("#search-field").val().trim()
-    }).done(data => {
-        console.log("done");
-    })
+    // $.ajax({
+    //     type: "GET",
+    //     url: '/search/' + $("#search-field").val().trim()
+    // }).done(data => {
+    // })
 })
 
+// this displays an animation while the fetch is happening
 var displayLoaderBootbox = () => {
-    console.log("This happened as the ajax request is being made");
-    
+    const dialogBox = [
+        `<div class="loading" id="loading">`,
+            `<h2 class="diagHeader align-center">Loading New Posts</h2>`,
+            `<ul class="bokeh">`,
+                `<li></li>`,
+                `<li></li>`,
+                `<li></li>`,
+            `</ul>`,
+        `</div>`
+    ].join("");
+
+    bootbox.dialog({
+        message: dialogBox,
+        closeButton: false
+    })
 }

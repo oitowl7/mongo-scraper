@@ -6,10 +6,10 @@ const mongoose = require("mongoose");
 
 router.use('/fetch', require('./fetch.js'));
 router.use('/saved', require('./saved.js'));
-router.use('/note', require('./note.js'));
 router.use('/search', require('./search.js'));
 router.use('/api', require('./api.js'));
 
+//main page route
 router.get('/', (req, res) => {
     var nothing;
     db.Headline.find({})
@@ -28,15 +28,10 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/delete', (req, res) => {
-    db.Headline.remove();
-    res.send("collection removed");
-})
-
+// changes "saved" field 
 router.put('/save/:id', (req, res) => {
     const id = req.params.id;
     db.Headline.update({_id: req.params.id}, { $set: {saved: true}}, (err, results) => {
-        console.log(results);
     }).then((data) => {
         res.send("complete");
     }).catch(err => {

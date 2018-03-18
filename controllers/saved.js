@@ -2,9 +2,8 @@ const express = require('express');
 let router = express.Router();
 const db = require("../models");
 
-
+// route that shows all saved articles
 router.get('/', function(req, res) {
-    let nothing;
     db.Headline.find({"saved": true})
     .then((data) => {
         let dataToDom = {
@@ -14,16 +13,15 @@ router.get('/', function(req, res) {
             dataToDom.data.push(data[i])
         }
         res.render('saved', dataToDom)
-        // res.json(dataToDom.data);
     }).catch((err) => {
 
     })
 });
 
+// api call to remove an article from saved
 router.put('/deletesaved/:id', (req, res) => {
     const id = req.params.id;
     db.Headline.update({_id: req.params.id}, { $set: {saved: false}}, (err, results) => {
-        console.log(results);
     }).then((data) => {
         res.send("complete");
     }).catch(err => {
@@ -34,7 +32,6 @@ router.put('/deletesaved/:id', (req, res) => {
 router.post('/newnote/:id', (req, res) => {
     db.Note.create(req.body)
     .then( data => {
-        console.log(data);
         return db.Headline.update({_id: req.params.id}, { $push: {note: data._id }}, {new: true});
     })
     .then(data2 => {
@@ -46,7 +43,6 @@ router.post('/newnote/:id', (req, res) => {
 })
 
 router.delete('/deletenote/:id', (req, res) => {
-    console.log("ID : _" + req.params.id);
     db.Note.deleteOne({_id: req.params.id}, (err) => {
 
     })

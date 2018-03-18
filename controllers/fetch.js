@@ -20,7 +20,6 @@ app.use(express.static("public"));
 
 
 router.get('/', function(req, res) {
-    console.log("we're fetching")
     axios.get("https://www.reddit.com").then(response => {
         const $ = cheerio.load(response.data);
         $("a.title").each((i, element) => {
@@ -35,9 +34,10 @@ router.get('/', function(req, res) {
                 subReddit
             }
             db.Headline.create(result)
+            .catch(err=>{
+                console.log(err.errmsg);
+            })
             .then(data => {
-                console.log(result);
-                console.log(data);
                 res.send("it worked");
             })
         })
